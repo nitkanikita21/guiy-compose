@@ -1,0 +1,24 @@
+[versions]
+kotlin = "2.1.0"
+kotlinx-coroutines = "1.10.1"
+paper-api = "1.20.4-R0.1-SNAPSHOT"
+compose = "1.6.11"
+mccoroutine = "2.15.0"
+runtime-desktop = "1.7.3"
+anvilgui = "1.10.3-SNAPSHOT"
+
+
+[libraries]
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+mccoroutine-api = { module = "com.github.shynixn.mccoroutine:mccoroutine-bukkit-api", version.ref = "mccoroutine" }
+
+paper-api = { module = "io.papermc.paper:paper-api", version.ref = "paper-api" }
+runtime-desktop = { group = "org.jetbrains.compose.runtime", name = "runtime-desktop", version.ref = "runtime-desktop" }
+craftoriya-toolkit-utils = { module = "net.craftoriya.toolkit:utils", version = "1.1.1-SNAPSHOT" }
+anvilgui = { module = "net.wesjd:anvilgui", version.ref = "anvilgui" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+compose = { id = "org.jetbrains.compose", version.ref = "compose" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

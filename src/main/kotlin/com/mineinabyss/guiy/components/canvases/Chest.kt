@@ -9,12 +9,15 @@ import com.mineinabyss.guiy.modifiers.onSizeChanged
 import com.mineinabyss.guiy.modifiers.sizeIn
 import com.mineinabyss.guiy.nodes.InventoryCloseScope
 import com.mineinabyss.guiy.nodes.StaticMeasurePolicy
-import com.mineinabyss.idofront.entities.title
-import com.mineinabyss.idofront.textcomponents.miniMsg
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.minimessage.MiniMessage
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
+import net.wesjd.anvilgui.AnvilGUI
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.inventory.Inventory
+import org.bukkit.inventory.InventoryView
+
 
 const val CHEST_WIDTH = 9
 const val MIN_CHEST_HEIGHT = 1
@@ -33,7 +36,7 @@ fun Chest(
     onClose: (InventoryCloseScope.(player: Player) -> Unit) = {},
     content: @Composable () -> Unit,
 ) {
-    Chest(viewers, title.miniMsg(), modifier, onClose, content)
+    Chest(viewers, MiniMessage.miniMessage().deserialize(title), modifier, onClose, content)
 }
 
 /**
@@ -56,7 +59,7 @@ fun Chest(
     var size by remember { mutableStateOf(Size()) }
     val constrainedModifier =
         Modifier.sizeIn(CHEST_WIDTH, CHEST_WIDTH, MIN_CHEST_HEIGHT, MAX_CHEST_HEIGHT).then(modifier)
-        .onSizeChanged { if (size != it) size = it }
+            .onSizeChanged { if (size != it) size = it }
 
     val holder = rememberInventoryHolder(viewers, onClose)
 
@@ -82,6 +85,7 @@ fun Chest(
         inventory.viewers.forEach { it.openInventory.title(title) }
     }
 
+
     //TODO handle sending correct title when player list changes
     Inventory(
         inventory = inventory,
@@ -97,4 +101,9 @@ fun Chest(
     ) {
         content()
     }
+}
+
+private fun InventoryView.title(title: Component) {
+    setTitle(LegacyComponentSerializer.legacySection().serialize(title))
+    (player as Player).updateInventory()
 }

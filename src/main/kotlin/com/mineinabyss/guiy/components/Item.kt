@@ -9,8 +9,7 @@ import com.mineinabyss.guiy.layout.Renderer
 import com.mineinabyss.guiy.modifiers.Modifier
 import com.mineinabyss.guiy.modifiers.sizeIn
 import com.mineinabyss.guiy.nodes.GuiyNode
-import com.mineinabyss.idofront.items.editItemMeta
-import com.mineinabyss.idofront.textcomponents.miniMsg
+import net.craftoriya.toolkit.utils.asChatComponent
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
@@ -53,14 +52,15 @@ fun Item(
     hideTooltip: Boolean = false,
     modifier: Modifier = Modifier,
 ) {
-    val titleMM = remember(title) { title?.miniMsg() }
-    val loreMM = remember(lore) { lore.map { it.miniMsg() } }
+    val titleMM = remember(title) { title?.asChatComponent }
+    val loreMM = remember(lore) { lore.map { it.asChatComponent } }
 
     val item = remember(material, title, amount, lore, hideTooltip) {
-        ItemStack(material, amount).editItemMeta {
-            itemName(titleMM)
-            lore(loreMM)
-            isHideTooltip = hideTooltip
+        ItemStack(material, amount).apply {
+            editMeta {
+                it.displayName(titleMM)
+                it.lore(loreMM)
+            }
         }
     }
 

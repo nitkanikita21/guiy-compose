@@ -3,6 +3,7 @@ package com.mineinabyss.guiy.components.canvases
 import androidx.compose.runtime.*
 import com.github.shynixn.mccoroutine.bukkit.launch
 import com.github.shynixn.mccoroutine.bukkit.minecraftDispatcher
+import com.github.shynixn.mccoroutine.bukkit.ticks
 import com.mineinabyss.guiy.components.state.IntCoordinates
 import com.mineinabyss.guiy.guiyPlugin
 import com.mineinabyss.guiy.inventory.*
@@ -14,7 +15,6 @@ import com.mineinabyss.guiy.modifiers.drag.DragScope
 import com.mineinabyss.guiy.nodes.GuiyNode
 import com.mineinabyss.guiy.nodes.InventoryCloseScope
 import com.mineinabyss.guiy.nodes.StaticMeasurePolicy
-import com.mineinabyss.idofront.time.ticks
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import org.bukkit.entity.Player

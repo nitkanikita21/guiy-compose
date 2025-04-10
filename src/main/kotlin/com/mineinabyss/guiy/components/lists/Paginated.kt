@@ -11,7 +11,6 @@ import com.mineinabyss.guiy.layout.Row
 import com.mineinabyss.guiy.layout.Size
 import com.mineinabyss.guiy.modifiers.*
 import com.mineinabyss.guiy.modifiers.placement.padding.padding
-import com.mineinabyss.idofront.items.editItemMeta
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
@@ -28,9 +27,7 @@ fun <T> Paginated(
     previousButton: @Composable () -> Unit,
     navbarPosition: NavbarPosition = NavbarPosition.BOTTOM,
     navbarBackground: ItemStack? = remember {
-        ItemStack(Material.GRAY_STAINED_GLASS_PANE).editItemMeta {
-            isHideTooltip = true
-        }
+        ItemStack(Material.GRAY_STAINED_GLASS_PANE)
     },
     content: @Composable (page: List<T>) -> Unit,
 ) {

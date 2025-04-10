@@ -3,19 +3,21 @@ package com.mineinabyss.guiy
 import com.mineinabyss.guiy.inventory.GuiyEventListener
 import com.mineinabyss.guiy.inventory.GuiyInventoryHolder
 import com.mineinabyss.guiy.inventory.GuiyScopeManager
-import com.mineinabyss.idofront.plugin.listeners
 import kotlinx.coroutines.cancel
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
+import kotlin.properties.Delegates
 
-val guiyPlugin = Bukkit.getPluginManager().getPlugin("Guiy") as JavaPlugin
+private var pl by Delegates.notNull<JavaPlugin>();
+val guiyPlugin get() = pl
 
-class GuiyPlugin : JavaPlugin() {
-    override fun onEnable() {
-        listeners(GuiyEventListener())
+
+object Guiy {
+    fun enable(plugin: JavaPlugin) {
+        plugin.server.pluginManager.registerEvents(GuiyEventListener(), plugin)
+        pl = plugin
     }
-
-    override fun onDisable() {
+    fun disable(plugin: JavaPlugin) {
         GuiyScopeManager.scopes.forEach { it.cancel() }
         Bukkit.getOnlinePlayers()
             .mapNotNull { it.openInventory.topInventory.holder as? GuiyInventoryHolder }
